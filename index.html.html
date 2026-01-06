@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Estrutura Regional | Indiana Farma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Cores Indiana - Fundo Claro */
+            --indiana-blue: #0052CC;
+            --indiana-blue-light: #4C9AFF;
+            --indiana-blue-pale: #DEEBFF;
+            --indiana-purple: #5B2D82;
+            --indiana-purple-light: #8777D9;
+            --bg-primary: #F8FAFC;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --text-muted: #94A3B8;
+            --border: #E2E8F0;
+            --border-light: #F1F5F9;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--indiana-blue) 0%, var(--indiana-purple) 100%);
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-dot {
+            color: #FFD700;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            font-weight: 400;
+        }
+
+        .header-info {
+            text-align: right;
+            color: #fff;
+        }
+
+        .header-info .date {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .header-info .update {
+            font-size: 11px;
+            opacity: 0.6;
+            margin-top: 4px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon.blue { background: var(--indiana-blue-pale); }
+        .stat-icon.purple { background: #EDE9FE; }
+        .stat-icon.green { background: #D1FAE5; }
+        .stat-icon.orange { background: #FEF3C7; }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Controls */
+        .controls {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 280px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            background: var(--bg-primary);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--indiana-blue);
+            background: #fff;
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border);
+            background: var(--bg-primary);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--indiana-blue-light);
+            color: var(--indiana-blue);
+        }
+
+        .filter-btn.active {
+            background: var(--indiana-blue);
+            border-color: var(--indiana-blue);
+            color: #fff;
+        }
+
+        .export-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--indiana-blue) 0%, var(--indiana-purple) 100%);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Regionais Grid */
+        .regionais-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 24px;
+        }
+
+        .regional-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .regional-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .regional-header {
+            background: linear-gradient(135deg, var(--indiana-blue) 0%, var(--indiana-blue-light) 100%);
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .regional-header.has-distrital {
+            background: linear-gradient(135deg, var(--indiana-purple) 0%, var(--indiana-purple-light) 100%);
+        }
+
+        .regional-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .regional-badge {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            color: #fff;
+            backdrop-filter: blur(4px);
+        }
+
+        .regional-details h3 {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .regional-details .gerente {
+            color: rgba(255,255,255,0.85);
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .regional-count {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 14px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+
+        .regional-body {
+            padding: 20px 24px;
+        }
+
+        /* Distrital Section */
+        .distrital-section {
+            margin-bottom: 20px;
+        }
+
+        .distrital-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--indiana-purple-light);
+        }
+
+        .distrital-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--indiana-purple) 0%, var(--indiana-purple-light) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .distrital-name {
+            font-weight: 600;
+            color: var(--indiana-purple);
+            font-size: 14px;
+        }
+
+        .distrital-count {
+            margin-left: auto;
+            background: #EDE9FE;
+            color: var(--indiana-purple);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Filiais List */
+        .filiais-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filial-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .filial-item:hover {
+            background: var(--indiana-blue-pale);
+            border-color: var(--indiana-blue-light);
+        }
+
+        .filial-item.distrital-filial {
+            background: #F5F3FF;
+        }
+
+        .filial-item.distrital-filial:hover {
+            background: #EDE9FE;
+            border-color: var(--indiana-purple-light);
+        }
+
+        .filial-codigo {
+            font-weight: 700;
+            color: var(--indiana-blue);
+            font-size: 12px;
+            min-width: 32px;
+        }
+
+        .filial-item.distrital-filial .filial-codigo {
+            color: var(--indiana-purple);
+        }
+
+        .filial-nome {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Divider */
+        .section-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 16px 0;
+        }
+
+        .diretas-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .diretas-label::before {
+            content: '';
+            width: 16px;
+            height: 2px;
+            background: var(--indiana-blue);
+            border-radius: 1px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 40px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .regionais-grid {
+                grid-template-columns: 1fr;
+            }
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            .header-info {
+                text-align: center;
+            }
+            .controls {
+                flex-direction: column;
+            }
+            .search-box {
+                width: 100%;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .controls, .export-btn { display: none; }
+            .regional-card { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-area">
+            <div>
+                <div class="logo">INDIANA<span class="logo-dot">.</span></div>
+                <div class="header-subtitle">Estrutura Organizacional por Regional</div>
+            </div>
+        </div>
+        <div class="header-info">
+            <div class="date">📅 Atualizado em: <span id="dataAtual"></span></div>
+            <div class="update">Versão editável - Dados em JSON</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">🏢</div>
+                <div class="stat-value" id="totalRegionais">0</div>
+                <div class="stat-label">Regionais</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple">👤</div>
+                <div class="stat-value" id="totalDistritais">0</div>
+                <div class="stat-label">Gerentes Distritais</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">🏪</div>
+                <div class="stat-value" id="totalFiliais">0</div>
+                <div class="stat-label">Filiais</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange">👥</div>
+                <div class="stat-value" id="totalGerentes">0</div>
+                <div class="stat-label">Total Gestores</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar por regional, gerente, filial ou código...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="with-distrital">Com Distrital</button>
+                <button class="filter-btn" data-filter="without-distrital">Sem Distrital</button>
+            </div>
+            <button class="export-btn" onclick="exportToExcel()">
+                📥 Exportar Excel
+            </button>
+        </div>
+
+        <!-- Regionais Grid -->
+        <div class="regionais-grid" id="regionaisContainer"></div>
+    </div>
+
+    <footer class="footer">
+        <p>Indiana Farma © 2026 | Dashboard de Estrutura Regional</p>
+        <p style="margin-top: 8px; font-size: 11px;">Para adicionar novas lojas, edite o array <code>dadosRegionais</code> no código</p>
+    </footer>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════
+        // 📊 DADOS EDITÁVEIS - ADICIONE NOVAS LOJAS AQUI
+        // ═══════════════════════════════════════════════════════════════════
+        // 
+        // COMO ADICIONAR UMA NOVA FILIAL:
+        // 1. Encontre a regional correta no array abaixo
+        // 2. Se a filial é DIRETA ao Regional:
+        //    - Adicione em "filiais_diretas": { codigo: X, nome: "Nome Filial" }
+        // 3. Se a filial é de um DISTRITAL:
+        //    - Encontre o distrital em "distritais"
+        //    - Adicione em "filiais": { codigo: X, nome: "Nome Filial" }
+        // 4. Atualize "total_filiais" com o novo total
+        //
+        // COMO ADICIONAR UM NOVO DISTRITAL:
+        // 1. Encontre a regional correta
+        // 2. Adicione em "distritais": { nome: "Nome Distrital", filiais: [] }
+        //
+        // ═══════════════════════════════════════════════════════════════════
+
+        const dadosRegionais = [
+  {
+    "codigo": "BA",
+    "gerente": "Monique",
+    "distritais": [],
+    "filiais_diretas": [
+      { "codigo": 30, "nome": "Matriz" },
+      { "codigo": 31, "nome": "Drive" },
+      { "codigo": 32, "nome": "Fae" },
+      { "codigo": 34, "nome": "Itabata" },
+      { "codigo": 35, "nome": "Posto Da Mata" },
+      { "codigo": 48, "nome": "Itamaraju" },
+      { "codigo": 76, "nome": "Marechal" },
+      { "codigo": 80, "nome": "Regional" },
+      { "codigo": 91, "nome": "Rondelli" },
+      { "codigo": 95, "nome": "Medeiros Neto" },
+      { "codigo": 148, "nome": "Sobrasa" },
+      { "codigo": 168, "nome": "Jardim Caraipe" },
+      { "codigo": 169, "nome": "Itamaraju 2" },
+      { "codigo": 174, "nome": "Padre Anchieta" },
+      { "codigo": 213, "nome": "Prado" },
+      { "codigo": 226, "nome": "Vila Vargas" },
+      { "codigo": 247, "nome": "Costa Das Baleias" },
+      { "codigo": 280, "nome": "Pioneiro" },
+      { "codigo": 283, "nome": "Mucuri" }
+    ],
+    "total_filiais": 19
+  },
+  {
+    "codigo": "CA",
+    "gerente": "Fabiano Garcia",
+    "distritais": [
+      {
+        "nome": "Felipe",
+        "filiais": [
+          { "codigo": 134, "nome": "Carangola" },
+          { "codigo": 156, "nome": "Ipanema" },
+          { "codigo": 171, "nome": "Manhumirim" },
+          { "codigo": 206, "nome": "Mutum" },
+          { "codigo": 212, "nome": "Lajinha" },
+          { "codigo": 245, "nome": "Espera Feliz" }
+        ]
+      }
+    ],
+    "filiais_diretas": [
+      { "codigo": 28, "nome": "Raul Soares" },
+      { "codigo": 29, "nome": "Rodoviaria" },
+      { "codigo": 44, "nome": "Inhapim" },
+      { "codigo": 72, "nome": "Praça Conceição" },
+      { "codigo": 73, "nome": "Moacir Matos" },
+      { "codigo": 96, "nome": "Olegário" },
+      { "codigo": 100, "nome": "Manhuaçu 2" },
+      { "codigo": 102, "nome": "Manhuaçu" },
+      { "codigo": 152, "nome": "Caratinga Br" },
+      { "codigo": 165, "nome": "Manhuacu 3" },
+      { "codigo": 170, "nome": "Manhuacu Rodoviaria" },
+      { "codigo": 178, "nome": "Matipo" },
+      { "codigo": 202, "nome": "Praca Da Estacao" },
+      { "codigo": 230, "nome": "Calogeras" },
+      { "codigo": 241, "nome": "Piedade De Caratinga" }
+    ],
+    "total_filiais": 21
+  },
+  {
+    "codigo": "DIA",
+    "gerente": "Robson",
+    "distritais": [
+      {
+        "nome": "Manuela",
+        "filiais": [
+          { "codigo": 13, "nome": "Itabira" },
+          { "codigo": 50, "nome": "João Monlevade 2" },
+          { "codigo": 104, "nome": "João Monlevade" },
+          { "codigo": 110, "nome": "Joao Monlevade 3" },
+          { "codigo": 175, "nome": "Nova Era" },
+          { "codigo": 191, "nome": "Carlos Drummond" },
+          { "codigo": 194, "nome": "Joao Pinheiro" },
+          { "codigo": 215, "nome": "Alvorada" },
+          { "codigo": 220, "nome": "Gabiroba" }
+        ]
+      }
+    ],
+    "filiais_diretas": [
+      { "codigo": 52, "nome": "Malacacheta" },
+      { "codigo": 54, "nome": "Capelinha" },
+      { "codigo": 69, "nome": "Guanhaes" },
+      { "codigo": 87, "nome": "Diamantina" },
+      { "codigo": 93, "nome": "Itamarandiba" },
+      { "codigo": 101, "nome": "Itabira 2" },
+      { "codigo": 105, "nome": "Novo Cruzeiro" },
+      { "codigo": 125, "nome": "Dom Joao" },
+      { "codigo": 133, "nome": "Acacias" },
+      { "codigo": 139, "nome": "Turmalina" },
+      { "codigo": 203, "nome": "Milton Campos" },
+      { "codigo": 264, "nome": "Planalto" }
+    ],
+    "total_filiais": 21
+  },
+  {
+    "codigo": "ES",
+    "gerente": "Flavia Nico",
+    "distritais": [],
+    "filiais_diretas": [
+      { "codigo": 85, "nome": "São Mateus" },
+      { "codigo": 119, "nome": "Barra De São Francisco" },
+      { "codigo": 137, "nome": "Pedro Canário" },
+      { "codigo": 151, "nome": "São Mateus 2" },
+      { "codigo": 159, "nome": "Mantena" },
+      { "codigo": 160, "nome": "Guriri" },
+      { "codigo": 163, "nome": "Montanha" },
+      { "codigo": 181, "nome": "Pinheiros" },
+      { "codigo": 183, "nome": "Santo Antonio" },
+      { "codigo": 188, "nome": "Guanabara" },
+      { "codigo": 198, "nome": "Pio Xii" },
+      { "codigo": 208, "nome": "Duarte Santos" },
+      { "codigo": 234, "nome": "Marco Polo" },
+      { "codigo": 273, "nome": "Conceicao Da Barra" },
+      { "codigo": 294, "nome": "Sao Gabriel Da Palha" }
+    ],
+    "total_filiais": 15
+  },
+  {
+    "codigo": "GV",
+    "gerente": "Alba",
+    "distritais": [
+      {
+        "nome": "Ezequiel",
+        "filiais": [
+          { "codigo": 6, "nome": "Mercado" },
+          { "codigo": 8, "nome": "Ibituruna" },
+          { "codigo": 10, "nome": "Belvick" },
+          { "codigo": 16, "nome": "Peçanha" },
+          { "codigo": 22, "nome": "Minas Gerais" },
+          { "codigo": 37, "nome": "Lourdes" },
+          { "codigo": 107, "nome": "Posto" },
+          { "codigo": 176, "nome": "Praca Do Emigrante" },
+          { "codigo": 229, "nome": "Avenida Brasil 2" }
+        ]
+      }
+    ],
+    "filiais_diretas": [
+      { "codigo": 5, "nome": "Chiste" },
+      { "codigo": 9, "nome": "Perola" },
+      { "codigo": 12, "nome": "Jk" },
+      { "codigo": 14, "nome": "Vila Isa" },
+      { "codigo": 25, "nome": "Santa Rita" },
+      { "codigo": 38, "nome": "Ilha" },
+      { "codigo": 41, "nome": "São Lucas" },
+      { "codigo": 130, "nome": "Santo Agostinho" },
+      { "codigo": 131, "nome": "Sao Raimundo" },
+      { "codigo": 136, "nome": "Sao Pedro" },
+      { "codigo": 150, "nome": "Mirante" },
+      { "codigo": 153, "nome": "Conselheiro Pena" },
+      { "codigo": 244, "nome": "Castanheiras" },
+      { "codigo": 258, "nome": "Pedro Lessa" },
+      { "codigo": 272, "nome": "Morada Do Vale" }
+    ],
+    "total_filiais": 24
+  },
+  {
+    "codigo": "ILH",
+    "gerente": "Renan",
+    "distritais": [
+      {
+        "nome": "Nayphi",
+        "filiais": [
+          { "codigo": 228, "nome": "Canavieiras" },
+          { "codigo": 256, "nome": "Jequie" },
+          { "codigo": 263, "nome": "Jequiezinho" },
+          { "codigo": 270, "nome": "Jaguaquara" },
+          { "codigo": 277, "nome": "Maracas" },
+          { "codigo": 288, "nome": "Sao Jose" }
+        ]
+      }
+    ],
+    "filiais_diretas": [
+      { "codigo": 66, "nome": "Itabuna" },
+      { "codigo": 117, "nome": "Itabuna 2" },
+      { "codigo": 120, "nome": "Jorge Amado" },
+      { "codigo": 124, "nome": "Cinquentenário" },
+      { "codigo": 138, "nome": "Jardim Vitoria" },
+      { "codigo": 145, "nome": "Jardim Atlantico" },
+      { "codigo": 147, "nome": "Itabuna Conlar" },
+      { "codigo": 155, "nome": "Posto Sante" },
+      { "codigo": 189, "nome": "Ilheus Pontal" },
+      { "codigo": 231, "nome": "Sao Caetano" },
+      { "codigo": 232, "nome": "Itacare" },
+      { "codigo": 246, "nome": "Ipiau" },
+      { "codigo": 269, "nome": "Ilheus Orla" },
+      { "codigo": 271, "nome": "Barra Grande" }
+    ],
+    "total_filiais": 20
+  },
+  {
+    "codigo": "OP",
+    "gerente": "Amanda",
+    "distritais": [],
+    "filiais_diretas": [
+      { "codigo": 15, "nome": "Ponte Nova" },
+      { "codigo": 64, "nome": "Lavras" },
+      { "codigo": 98, "nome": "Ponte Nova 2" },
+      { "codigo": 182, "nome": "Barbacena" },
+      { "codigo": 184, "nome": "Conselheiro Lafaiete" },
+      { "codigo": 185, "nome": "Mariana" },
+      { "codigo": 186, "nome": "Bias Fortes" },
+      { "codigo": 195, "nome": "Sao Sebastiao" },
+      { "codigo": 199, "nome": "Congonhas" },
+      { "codigo": 204, "nome": "Ouro Branco" },
+      { "codigo": 205, "nome": "Bauxita" },
+      { "codigo": 207, "nome": "Tiradentes" },
+      { "codigo": 209, "nome": "Sao Joao Del Rei" },
+      { "codigo": 257, "nome": "Barro Preto" },
+      { "codigo": 266, "nome": "Ouro Branco 2" },
+      { "codigo": 296, "nome": "Nova Serrana" }
+    ],
+    "total_filiais": 16
+  },
+  {
+    "codigo": "PS",
+    "gerente": "Jeferson",
+    "distritais": [
+      {
+        "nome": "Jarlerson",
+        "filiais": [
+          { "codigo": 65, "nome": "Eunapolis" },
+          { "codigo": 71, "nome": "Eunapolis 2" },
+          { "codigo": 77, "nome": "Itabela" },
+          { "codigo": 83, "nome": "Eunapolis 3" },
+          { "codigo": 106, "nome": "Eunapolis 4" },
+          { "codigo": 149, "nome": "Igrejinha" },
+          { "codigo": 173, "nome": "Eunapolis Pequi" },
+          { "codigo": 217, "nome": "Eunacenter" },
+          { "codigo": 252, "nome": "Eunapolis Br" },
+          { "codigo": 286, "nome": "Itabela 2" }
+        ]
+      }
+    ],
+    "filiais_diretas": [
+      { "codigo": 33, "nome": "Passarela" },
+      { "codigo": 67, "nome": "Porto Seguro" },
+      { "codigo": 79, "nome": "Baianão" },
+      { "codigo": 84, "nome": "Navegantes" },
+      { "codigo": 86, "nome": "Porto Centro" },
+      { "codigo": 92, "nome": "Arraial Dajuda" },
+      { "codigo": 123, "nome": "Broadway" },
+      { "codigo": 158, "nome": "Coroa Vermelha" },
+      { "codigo": 164, "nome": "Trancoso" },
+      { "codigo": 242, "nome": "Campinho" },
+      { "codigo": 248, "nome": "Navegantes 2" },
+      { "codigo": 261, "nome": "Passarela 2" },
+      { "codigo": 267, "nome": "Porto Orla" },
+      { "codigo": 279, "nome": "Indiana Dermo Store" }
+    ],
+    "total_filiais": 24
+  },
+  {
+    "codigo": "TO",
+    "gerente": "Fabiano R",
+    "distritais": [],
+    "filiais_diretas": [
+      { "codigo": 1, "nome": "Matriz" },
+      { "codigo": 2, "nome": "Getulio Vargas" },
+      { "codigo": 3, "nome": "Drogalar" },
+      { "codigo": 4, "nome": "Feirinha" },
+      { "codigo": 7, "nome": "Bela Vista" },
+      { "codigo": 17, "nome": "Avenida" },
+      { "codigo": 20, "nome": "Praça Tiradentes" },
+      { "codigo": 23, "nome": "São Jacinto" },
+      { "codigo": 24, "nome": "Itambacuri" },
+      { "codigo": 39, "nome": "Francisco Sa" },
+      { "codigo": 40, "nome": "Nanuque" },
+      { "codigo": 60, "nome": "Duque De Caxias" },
+      { "codigo": 61, "nome": "Nanuque2" },
+      { "codigo": 62, "nome": "Carlos Chagas" },
+      { "codigo": 78, "nome": "Mc Donald" },
+      { "codigo": 88, "nome": "Aguas Formosas" },
+      { "codigo": 122, "nome": "Rio Bahia" },
+      { "codigo": 162, "nome": "Sao Cristovao" },
+      { "codigo": 166, "nome": "Safra T.O" },
+      { "codigo": 233, "nome": "Rua Das Flores" },
+      { "codigo": 999, "nome": "Administrativo" }
+    ],
+    "total_filiais": 21
+  },
+  {
+    "codigo": "VA",
+    "gerente": "Fabricio",
+    "distritais": [
+      {
+        "nome": "Gabriela",
+        "filiais": [
+          { "codigo": 43, "nome": "Avenida Brasil" },
+          { "codigo": 47, "nome": "Ipatinga 2" },
+          { "codigo": 51, "nome": "Igreja" },
+          { "codigo": 82, "nome": "Posto Bonanza" },
+          { "codigo": 132, "nome": "Canaa 3" },
+          { "codigo": 144, "nome": "Horto 2" },
+          { "codigo": 237, "nome": "Cidade Nova" },
+          { "codigo": 253, "nome": "Macapa" }
+        ]
+      }
+    ],
+    "filiais_diretas": [
+      { "codigo": 11, "nome": "Ipatinga" },
+      { "codigo": 26, "nome": "Bom Jardim" },
+      { "codigo": 27, "nome": "Cidade Nobre" },
+      { "codigo": 36, "nome": "Bom Retiro" },
+      { "codigo": 42, "nome": "Horto" },
+      { "codigo": 63, "nome": "Canaa" },
+      { "codigo": 70, "nome": "Iguacu" },
+      { "codigo": 81, "nome": "Canaa 2" },
+      { "codigo": 89, "nome": "Shopping" },
+      { "codigo": 99, "nome": "Cidade Nobre 2" },
+      { "codigo": 108, "nome": "Rotatoria" },
+      { "codigo": 127, "nome": "Bethania" },
+      { "codigo": 157, "nome": "Iguacu 2" },
+      { "codigo": 172, "nome": "Caravelas" },
+      { "codigo": 177, "nome": "Veneza" },
+      { "codigo": 193, "nome": "Canaanzinho" },
+      { "codigo": 254, "nome": "Bom Retiro 2" },
+      { "codigo": 262, "nome": "Ipaba" }
+    ],
+    "total_filiais": 26
+  },
+  {
+    "codigo": "VA2",
+    "gerente": "Ruy",
+    "distritais": [
+      {
+        "nome": "Sandra",
+        "filiais": [
+          { "codigo": 21, "nome": "Acesita" },
+          { "codigo": 45, "nome": "Metasita" },
+          { "codigo": 46, "nome": "Sao Rafael" },
+          { "codigo": 49, "nome": "Timoteo" },
+          { "codigo": 142, "nome": "Olaria" },
+          { "codigo": 216, "nome": "Funcionarios" }
+        ]
+      }
+    ],
+    "filiais_diretas": [
+      { "codigo": 18, "nome": "Panorama" },
+      { "codigo": 19, "nome": "Melo Viana" },
+      { "codigo": 74, "nome": "Calçadão" },
+      { "codigo": 113, "nome": "Fabriciano Centro" },
+      { "codigo": 126, "nome": "Melo Viana 2" },
+      { "codigo": 129, "nome": "Caladinho" },
+      { "codigo": 180, "nome": "Magalhaes Pinto" },
+      { "codigo": 218, "nome": "Santa Cruz" },
+      { "codigo": 227, "nome": "Fabriciano Br" },
+      { "codigo": 250, "nome": "Amaro Lanari" },
+      { "codigo": 290, "nome": "Acesita 2" }
+    ],
+    "total_filiais": 17
+  },
+  {
+    "codigo": "VCA",
+    "gerente": "José Leandro",
+    "distritais": [
+      {
+        "nome": "Jairo",
+        "filiais": [
+          { "codigo": 196, "nome": "Itapetinga" },
+          { "codigo": 197, "nome": "Lauro De Freitas" },
+          { "codigo": 201, "nome": "Lions Club" },
+          { "codigo": 249, "nome": "Brumado" },
+          { "codigo": 251, "nome": "Juracy Magalhaes" },
+          { "codigo": 259, "nome": "Patagonia" }
+        ]
+      }
+    ],
+    "filiais_diretas": [
+      { "codigo": 190, "nome": "Otavio Santos" },
+      { "codigo": 200, "nome": "Vitor Brito" },
+      { "codigo": 214, "nome": "Conquista Sul" },
+      { "codigo": 223, "nome": "Olivia Flores" },
+      { "codigo": 225, "nome": "Frei Benjamin" },
+      { "codigo": 265, "nome": "Livramento" },
+      { "codigo": 274, "nome": "Bom Jesus Da Lapa" },
+      { "codigo": 278, "nome": "Guanambi" },
+      { "codigo": 285, "nome": "Caetite" }
+    ],
+    "total_filiais": 15
+  },
+  {
+    "codigo": "VIT",
+    "gerente": "Lucimar",
+    "distritais": [],
+    "filiais_diretas": [
+      { "codigo": 94, "nome": "Linhares" },
+      { "codigo": 114, "nome": "Colatina" },
+      { "codigo": 115, "nome": "Sao Silvano" },
+      { "codigo": 146, "nome": "Linhares 2" },
+      { "codigo": 167, "nome": "Linhares 3" },
+      { "codigo": 179, "nome": "Vila Nova" },
+      { "codigo": 187, "nome": "Aracruz" },
+      { "codigo": 210, "nome": "Meridional" },
+      { "codigo": 211, "nome": "Henrique Moscoso" },
+      { "codigo": 221, "nome": "Guarapari" },
+      { "codigo": 222, "nome": "Interlagos" },
+      { "codigo": 235, "nome": "Novo Horizonte" },
+      { "codigo": 236, "nome": "Itaparica" },
+      { "codigo": 239, "nome": "Anhanguera" },
+      { "codigo": 240, "nome": "Baixo Guandu" },
+      { "codigo": 243, "nome": "Norte Sul" },
+      { "codigo": 255, "nome": "Guarapari 2" },
+      { "codigo": 260, "nome": "Anchieta" },
+      { "codigo": 275, "nome": "Castelo" },
+      { "codigo": 276, "nome": "Cachoeiro De Itapemirim" },
+      { "codigo": 282, "nome": "Jacaraipe" },
+      { "codigo": 287, "nome": "N Sra Da Conceicao" },
+      { "codigo": 291, "nome": "Itaipava" },
+      { "codigo": 292, "nome": "Gloria" },
+      { "codigo": 293, "nome": "Nova Almeida" }
+    ],
+    "total_filiais": 25
+  },
+  {
+    "codigo": "VJ",
+    "gerente": "Viviane",
+    "distritais": [],
+    "filiais_diretas": [
+      { "codigo": 53, "nome": "Jequitinhonha" },
+      { "codigo": 55, "nome": "Almenara" },
+      { "codigo": 56, "nome": "Almenara 2" },
+      { "codigo": 57, "nome": "Rubim" },
+      { "codigo": 58, "nome": "Itaobim" },
+      { "codigo": 59, "nome": "Aracuai" },
+      { "codigo": 68, "nome": "Pedra Azul" },
+      { "codigo": 75, "nome": "Padre Paraiso" },
+      { "codigo": 224, "nome": "Medina" }
+    ],
+    "total_filiais": 9
+  },
+  {
+    "codigo": "ZM",
+    "gerente": "Leonardo",
+    "distritais": [],
+    "filiais_diretas": [
+      { "codigo": 97, "nome": "Viçosa" },
+      { "codigo": 103, "nome": "Uba" },
+      { "codigo": 109, "nome": "Leopoldina" },
+      { "codigo": 111, "nome": "Viçosa 2" },
+      { "codigo": 112, "nome": "Muriae" },
+      { "codigo": 116, "nome": "Elias Netto" },
+      { "codigo": 118, "nome": "Cataguases" },
+      { "codigo": 121, "nome": "Monte Alto" },
+      { "codigo": 128, "nome": "Barra" },
+      { "codigo": 135, "nome": "Visconde Do Rio Branco" },
+      { "codigo": 140, "nome": "Industrial" },
+      { "codigo": 141, "nome": "Itatiaia" },
+      { "codigo": 143, "nome": "Viçosa 3" },
+      { "codigo": 154, "nome": "Sao Januario" },
+      { "codigo": 161, "nome": "Ervalia" },
+      { "codigo": 192, "nome": "Ferroviaria" },
+      { "codigo": 219, "nome": "Alem Paraiba" },
+      { "codigo": 238, "nome": "Sao Joao Nepomuceno" },
+      { "codigo": 284, "nome": "Leopoldina 2" }
+    ],
+    "total_filiais": 19
+  }
+];
+
+        // ═══════════════════════════════════════════════════════════════════
+        // FIM DOS DADOS EDITÁVEIS
+        // ═══════════════════════════════════════════════════════════════════
+
+        let currentFilter = 'all';
+
+        // Set current date
+        document.getElementById('dataAtual').textContent = new Date().toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+
+        // Calculate and display stats
+        function updateStats() {
+            const totalRegionais = dadosRegionais.length;
+            const totalDistritais = dadosRegionais.reduce((acc, r) => acc + r.distritais.length, 0);
+            const totalFiliais = dadosRegionais.reduce((acc, r) => acc + r.total_filiais, 0);
+            const totalGerentes = totalRegionais + totalDistritais;
+
+            document.getElementById('totalRegionais').textContent = totalRegionais;
+            document.getElementById('totalDistritais').textContent = totalDistritais;
+            document.getElementById('totalFiliais').textContent = totalFiliais;
+            document.getElementById('totalGerentes').textContent = totalGerentes;
+        }
+
+        // Render regionais
+        function renderRegionais(data, searchTerm = '') {
+            const container = document.getElementById('regionaisContainer');
+            const search = searchTerm.toLowerCase().trim();
+
+            let filtered = data;
+
+            // Apply filter
+            if (currentFilter === 'with-distrital') {
+                filtered = data.filter(r => r.distritais.length > 0);
+            } else if (currentFilter === 'without-distrital') {
+                filtered = data.filter(r => r.distritais.length === 0);
+            }
+
+            // Apply search
+            if (search) {
+                filtered = filtered.filter(r => {
+                    const matchRegional = r.codigo.toLowerCase().includes(search) || 
+                                         r.gerente.toLowerCase().includes(search);
+                    const matchDistrital = r.distritais.some(d => 
+                        d.nome.toLowerCase().includes(search) ||
+                        d.filiais.some(f => f.nome.toLowerCase().includes(search) || 
+                                          f.codigo.toString().includes(search))
+                    );
+                    const matchFilial = r.filiais_diretas.some(f => 
+                        f.nome.toLowerCase().includes(search) || 
+                        f.codigo.toString().includes(search)
+                    );
+                    return matchRegional || matchDistrital || matchFilial;
+                });
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="empty-state-icon">🔍</div>
+                        <p>Nenhuma regional encontrada</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(regional => `
+                <div class="regional-card">
+                    <div class="regional-header ${regional.distritais.length > 0 ? 'has-distrital' : ''}">
+                        <div class="regional-info">
+                            <div class="regional-badge">${regional.codigo}</div>
+                            <div class="regional-details">
+                                <h3>Regional ${regional.codigo}</h3>
+                                <div class="gerente">👤 ${regional.gerente}</div>
+                            </div>
+                        </div>
+                        <div class="regional-count">${regional.total_filiais} filiais</div>
+                    </div>
+                    <div class="regional-body">
+                        ${regional.distritais.map(distrital => `
+                            <div class="distrital-section">
+                                <div class="distrital-header">
+                                    <div class="distrital-icon">👤</div>
+                                    <span class="distrital-name">Distrital ${distrital.nome}</span>
+                                    <span class="distrital-count">${distrital.filiais.length} filiais</span>
+                                </div>
+                                <div class="filiais-list">
+                                    ${distrital.filiais.map(f => `
+                                        <div class="filial-item distrital-filial">
+                                            <span class="filial-codigo">#${f.codigo}</span>
+                                            <span class="filial-nome">${f.nome}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                        ${regional.distritais.length > 0 && regional.filiais_diretas.length > 0 ? '<div class="section-divider"></div>' : ''}
+                        ${regional.filiais_diretas.length > 0 ? `
+                            <div class="diretas-label">Diretas ao Regional (${regional.filiais_diretas.length})</div>
+                            <div class="filiais-list">
+                                ${regional.filiais_diretas.map(f => `
+                                    <div class="filial-item">
+                                        <span class="filial-codigo">#${f.codigo}</span>
+                                        <span class="filial-nome">${f.nome}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Export to Excel
+        function exportToExcel() {
+            let csv = 'Regional;Gerente Regional;Gerente Distrital;Código Filial;Nome Filial;Tipo\n';
+            
+            dadosRegionais.forEach(regional => {
+                regional.distritais.forEach(distrital => {
+                    distrital.filiais.forEach(filial => {
+                        csv += `${regional.codigo};${regional.gerente};${distrital.nome};${filial.codigo};${filial.nome};Com Distrital\n`;
+                    });
+                });
+                regional.filiais_diretas.forEach(filial => {
+                    csv += `${regional.codigo};${regional.gerente};;${filial.codigo};${filial.nome};Direta ao Regional\n`;
+                });
+            });
+
+            const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `Estrutura_Regional_Indiana_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderRegionais(dadosRegionais, e.target.value);
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderRegionais(dadosRegionais, document.getElementById('searchInput').value);
+            });
+        });
+
+        // Initial render
+        updateStats();
+        renderRegionais(dadosRegionais);
+    </script>
+</body>
+</html>
