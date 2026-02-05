@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Cores Indiana - Fundo Claro */
             --indiana-blue: #0052CC;
             --indiana-blue-light: #4C9AFF;
             --indiana-blue-pale: #DEEBFF;
@@ -38,7 +37,6 @@
             line-height: 1.5;
         }
 
-        /* Header */
         .header {
             background: linear-gradient(135deg, var(--indiana-blue) 0%, var(--indiana-purple) 100%);
             padding: 24px 40px;
@@ -90,14 +88,12 @@
             margin-top: 4px;
         }
 
-        /* Container */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 32px 24px;
         }
 
-        /* Stats Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -149,7 +145,6 @@
             font-weight: 500;
         }
 
-        /* Controls */
         .controls {
             background: var(--bg-card);
             border-radius: 16px;
@@ -243,7 +238,6 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* Regionais Grid */
         .regionais-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
@@ -267,9 +261,6 @@
         .regional-header {
             background: linear-gradient(135deg, var(--indiana-blue) 0%, var(--indiana-blue-light) 100%);
             padding: 20px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .regional-header.has-distrital {
@@ -278,8 +269,9 @@
 
         .regional-info {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 14px;
+            margin-bottom: 12px;
         }
 
         .regional-badge {
@@ -294,19 +286,44 @@
             font-size: 16px;
             color: #fff;
             backdrop-filter: blur(4px);
+            flex-shrink: 0;
+        }
+
+        .regional-details {
+            flex: 1;
         }
 
         .regional-details h3 {
             color: #fff;
             font-size: 15px;
             font-weight: 700;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .regional-details .gerente {
-            color: rgba(255,255,255,0.85);
+            color: rgba(255,255,255,0.95);
             font-size: 13px;
-            font-weight: 400;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .contato-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contato-item {
+            color: rgba(255,255,255,0.85);
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contato-icon {
+            width: 14px;
+            text-align: center;
         }
 
         .regional-count {
@@ -317,13 +334,13 @@
             font-size: 13px;
             font-weight: 600;
             backdrop-filter: blur(4px);
+            display: inline-block;
         }
 
         .regional-body {
             padding: 20px 24px;
         }
 
-        /* Distrital Section */
         .distrital-section {
             margin-bottom: 20px;
         }
@@ -332,8 +349,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 12px;
-            padding-bottom: 10px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
             border-bottom: 2px solid var(--indiana-purple-light);
         }
 
@@ -347,25 +364,38 @@
             justify-content: center;
             color: #fff;
             font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .distrital-info {
+            flex: 1;
         }
 
         .distrital-name {
             font-weight: 600;
             color: var(--indiana-purple);
-            font-size: 14px;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .distrital-contato {
+            font-size: 10px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         .distrital-count {
-            margin-left: auto;
             background: #EDE9FE;
             color: var(--indiana-purple);
             padding: 4px 10px;
             border-radius: 12px;
             font-size: 12px;
             font-weight: 600;
+            white-space: nowrap;
         }
 
-        /* Filiais List */
         .filiais-list {
             display: flex;
             flex-wrap: wrap;
@@ -414,7 +444,6 @@
             font-weight: 500;
         }
 
-        /* Divider */
         .section-divider {
             height: 1px;
             background: var(--border);
@@ -441,7 +470,6 @@
             border-radius: 1px;
         }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 60px 40px;
@@ -453,7 +481,6 @@
             margin-bottom: 16px;
         }
 
-        /* Footer */
         .footer {
             text-align: center;
             padding: 32px;
@@ -461,7 +488,6 @@
             font-size: 13px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -485,7 +511,6 @@
             }
         }
 
-        /* Print Styles */
         @media print {
             .controls, .export-btn { display: none; }
             .regional-card { break-inside: avoid; }
@@ -497,17 +522,16 @@
         <div class="logo-area">
             <div>
                 <div class="logo">INDIANA<span class="logo-dot">.</span></div>
-                <div class="header-subtitle">Estrutura Organizacional por Regional</div>
+                <div class="header-subtitle">Estrutura Organizacional Completa</div>
             </div>
         </div>
         <div class="header-info">
             <div class="date">📅 Atualizado em: <span id="dataAtual"></span></div>
-            <div class="update">Versão editável - Dados em JSON</div>
+            <div class="update">Versão 3.0 - Com Contatos</div>
         </div>
     </header>
 
     <div class="container">
-        <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon blue">🏢</div>
@@ -531,7 +555,6 @@
             </div>
         </div>
 
-        <!-- Controls -->
         <div class="controls">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Buscar por regional, gerente, filial ou código...">
@@ -546,39 +569,21 @@
             </button>
         </div>
 
-        <!-- Regionais Grid -->
         <div class="regionais-grid" id="regionaisContainer"></div>
     </div>
 
     <footer class="footer">
         <p>Indiana Farma © 2026 | Dashboard de Estrutura Regional</p>
-        <p style="margin-top: 8px; font-size: 11px;">Para adicionar novas lojas, edite o array <code>dadosRegionais</code> no código</p>
+        <p style="margin-top: 8px; font-size: 11px;">Dados atualizados com telefones e e-mails</p>
     </footer>
 
     <script>
-        // ═══════════════════════════════════════════════════════════════════
-        // 📊 DADOS EDITÁVEIS - ADICIONE NOVAS LOJAS AQUI
-        // ═══════════════════════════════════════════════════════════════════
-        // 
-        // COMO ADICIONAR UMA NOVA FILIAL:
-        // 1. Encontre a regional correta no array abaixo
-        // 2. Se a filial é DIRETA ao Regional:
-        //    - Adicione em "filiais_diretas": { codigo: X, nome: "Nome Filial" }
-        // 3. Se a filial é de um DISTRITAL:
-        //    - Encontre o distrital em "distritais"
-        //    - Adicione em "filiais": { codigo: X, nome: "Nome Filial" }
-        // 4. Atualize "total_filiais" com o novo total
-        //
-        // COMO ADICIONAR UM NOVO DISTRITAL:
-        // 1. Encontre a regional correta
-        // 2. Adicione em "distritais": { nome: "Nome Distrital", filiais: [] }
-        //
-        // ═══════════════════════════════════════════════════════════════════
-
         const dadosRegionais = [
   {
-    "codigo": "BA",
-    "gerente": "Monique",
+    "codigo": "BA1",
+    "gerente": "Monique Araujo Pereira",
+    "telefone": "73 99989-3404",
+    "email": "monique.pereira@farmaciaindiana.com.br",
     "distritais": [],
     "filiais_diretas": [
       { "codigo": 30, "nome": "Matriz" },
@@ -605,10 +610,14 @@
   },
   {
     "codigo": "CA",
-    "gerente": "Fabiano Garcia",
+    "gerente": "Fabiano Garcia Tavares",
+    "telefone": "33 99150-8205",
+    "email": "fabianogarcia@farmaciaindiana.com.br",
     "distritais": [
       {
-        "nome": "Felipe",
+        "nome": "Felipe Ferreira Fagundes",
+        "telefone": "32 99989-1946",
+        "email": "felipe.fagundes@farmaciaindiana.com.br",
         "filiais": [
           { "codigo": 134, "nome": "Carangola" },
           { "codigo": 156, "nome": "Ipanema" },
@@ -640,10 +649,14 @@
   },
   {
     "codigo": "DIA",
-    "gerente": "Robson",
+    "gerente": "Robson Oliveira Moreira",
+    "telefone": "33 99110-6939",
+    "email": "robson@farmaciaindiana.com.br",
     "distritais": [
       {
-        "nome": "Manuela",
+        "nome": "Manuela de Souza Ignacio",
+        "telefone": "34 98846-5690",
+        "email": "manuela.souza@farmaciaindiana.com.br",
         "filiais": [
           { "codigo": 13, "nome": "Itabira" },
           { "codigo": 50, "nome": "João Monlevade 2" },
@@ -676,6 +689,8 @@
   {
     "codigo": "ES",
     "gerente": "Flavia Nico",
+    "telefone": "27 99721-6383",
+    "email": "flavia.nico@farmaciaindiana.com.br",
     "distritais": [],
     "filiais_diretas": [
       { "codigo": 85, "nome": "São Mateus" },
@@ -698,10 +713,14 @@
   },
   {
     "codigo": "GV",
-    "gerente": "Alba",
+    "gerente": "Alba Valeria Miranda Batista",
+    "telefone": "33 98409-2039",
+    "email": "alba@farmaciaindiana.com.br",
     "distritais": [
       {
-        "nome": "Ezequiel",
+        "nome": "Ezequiel Andrade C Barbosa",
+        "telefone": "27 99737-5202",
+        "email": "ezequiel.andrade@farmaciaindiana.com.br",
         "filiais": [
           { "codigo": 6, "nome": "Mercado" },
           { "codigo": 8, "nome": "Ibituruna" },
@@ -736,12 +755,16 @@
   },
   {
     "codigo": "ILH",
-    "gerente": "Renan",
+    "gerente": "Renan Geraldo Assis Fraga",
+    "telefone": "31 98486-4987",
+    "email": "renan.fraga@farmaciaindiana.com.br",
     "distritais": [
       {
-        "nome": "Nayphi",
+        "nome": "Nayphi Batista Alves",
+        "telefone": "73 9909-9033",
+        "email": "nayphi.alves@farmaciaindiana.com.br",
         "filiais": [
-          { "codigo": 228, "nome": "Canavieiras" },
+          { "codigo": 246, "nome": "Ipiau" },
           { "codigo": 256, "nome": "Jequie" },
           { "codigo": 263, "nome": "Jequiezinho" },
           { "codigo": 270, "nome": "Jaguaquara" },
@@ -760,17 +783,20 @@
       { "codigo": 147, "nome": "Itabuna Conlar" },
       { "codigo": 155, "nome": "Posto Sante" },
       { "codigo": 189, "nome": "Ilheus Pontal" },
+      { "codigo": 204, "nome": "Ilheus" },
+      { "codigo": 228, "nome": "Canavieiras" },
       { "codigo": 231, "nome": "Sao Caetano" },
       { "codigo": 232, "nome": "Itacare" },
-      { "codigo": 246, "nome": "Ipiau" },
       { "codigo": 269, "nome": "Ilheus Orla" },
       { "codigo": 271, "nome": "Barra Grande" }
     ],
-    "total_filiais": 20
+    "total_filiais": 21
   },
   {
     "codigo": "OP",
-    "gerente": "Amanda",
+    "gerente": "Amanda Augusta de Carvalho",
+    "telefone": "33 98422-5024",
+    "email": "amanda.carvalho@farmaciaindiana.com.br",
     "distritais": [],
     "filiais_diretas": [
       { "codigo": 15, "nome": "Ponte Nova" },
@@ -794,10 +820,14 @@
   },
   {
     "codigo": "PS",
-    "gerente": "Jeferson",
+    "gerente": "Jeferson de Souza Felisberto",
+    "telefone": "73 99942-2474",
+    "email": "jeferson.felisberto@farmaciaindiana.com.br",
     "distritais": [
       {
-        "nome": "Jarlerson",
+        "nome": "Jarleson da Silva Carvalho",
+        "telefone": "73 99944-2681",
+        "email": "jarleson.carvalho@farmaciaindiana.com.br",
         "filiais": [
           { "codigo": 65, "nome": "Eunapolis" },
           { "codigo": 71, "nome": "Eunapolis 2" },
@@ -832,8 +862,22 @@
   },
   {
     "codigo": "TO",
-    "gerente": "Fabiano R",
-    "distritais": [],
+    "gerente": "Fabiano Resende",
+    "telefone": "31 97231-0731",
+    "email": "fabianoresende@farmaciaindiana.com.br",
+    "distritais": [
+      {
+        "nome": "Eduardo Bastos",
+        "telefone": "33 98819-7398",
+        "email": "eduardo.bastos@farmaciaindiana.com.br",
+        "filiais": [
+          { "codigo": 40, "nome": "Nanuque" },
+          { "codigo": 61, "nome": "Nanuque2" },
+          { "codigo": 62, "nome": "Carlos Chagas" },
+          { "codigo": 88, "nome": "Aguas Formosas" }
+        ]
+      }
+    ],
     "filiais_diretas": [
       { "codigo": 1, "nome": "Matriz" },
       { "codigo": 2, "nome": "Getulio Vargas" },
@@ -845,12 +889,8 @@
       { "codigo": 23, "nome": "São Jacinto" },
       { "codigo": 24, "nome": "Itambacuri" },
       { "codigo": 39, "nome": "Francisco Sa" },
-      { "codigo": 40, "nome": "Nanuque" },
       { "codigo": 60, "nome": "Duque De Caxias" },
-      { "codigo": 61, "nome": "Nanuque2" },
-      { "codigo": 62, "nome": "Carlos Chagas" },
       { "codigo": 78, "nome": "Mc Donald" },
-      { "codigo": 88, "nome": "Aguas Formosas" },
       { "codigo": 122, "nome": "Rio Bahia" },
       { "codigo": 162, "nome": "Sao Cristovao" },
       { "codigo": 166, "nome": "Safra T.O" },
@@ -860,11 +900,15 @@
     "total_filiais": 21
   },
   {
-    "codigo": "VA",
-    "gerente": "Fabricio",
+    "codigo": "VA1",
+    "gerente": "Fabricio Rodrigues N de Oliveira",
+    "telefone": "31 99644-1920",
+    "email": "fabricio.oliveira@farmaciaindiana.com.br",
     "distritais": [
       {
-        "nome": "Gabriela",
+        "nome": "Gabriela Figueredo Martins",
+        "telefone": "31 98782-3033",
+        "email": "gabriela.martins@farmaciaindiana.com.br",
         "filiais": [
           { "codigo": 43, "nome": "Avenida Brasil" },
           { "codigo": 47, "nome": "Ipatinga 2" },
@@ -901,10 +945,14 @@
   },
   {
     "codigo": "VA2",
-    "gerente": "Ruy",
+    "gerente": "Ruy Rosa Batalha Junior",
+    "telefone": "31 99322-5613",
+    "email": "ruy.batalha@farmaciaindiana.com.br",
     "distritais": [
       {
-        "nome": "Sandra",
+        "nome": "Sandra Oliveira C Cangussu",
+        "telefone": "31 99428-3713",
+        "email": "sandra.cangussu@farmaciaindiana.com.br",
         "filiais": [
           { "codigo": 21, "nome": "Acesita" },
           { "codigo": 45, "nome": "Metasita" },
@@ -932,10 +980,14 @@
   },
   {
     "codigo": "VCA",
-    "gerente": "José Leandro",
+    "gerente": "Jose Leandro S. de Oliveira",
+    "telefone": "73 99997-3132",
+    "email": "jose.oliveira@farmaciaindiana.com.br",
     "distritais": [
       {
-        "nome": "Jairo",
+        "nome": "Jairo Moreira Lima",
+        "telefone": "71 99719-9837",
+        "email": "jairo.lima@farmaciaindiana.com.br",
         "filiais": [
           { "codigo": 196, "nome": "Itapetinga" },
           { "codigo": 197, "nome": "Lauro De Freitas" },
@@ -961,7 +1013,9 @@
   },
   {
     "codigo": "VIT",
-    "gerente": "Lucimar",
+    "gerente": "Lucimar Guimaraes Pidner",
+    "telefone": "31 98419-0305",
+    "email": "lucimar@farmaciaindiana.com.br",
     "distritais": [],
     "filiais_diretas": [
       { "codigo": 94, "nome": "Linhares" },
@@ -994,7 +1048,9 @@
   },
   {
     "codigo": "VJ",
-    "gerente": "Viviane",
+    "gerente": "Viviane Chaves S Peixoto",
+    "telefone": "33 99198-0072",
+    "email": "viviane@farmaciaindiana.com.br",
     "distritais": [],
     "filiais_diretas": [
       { "codigo": 53, "nome": "Jequitinhonha" },
@@ -1011,7 +1067,9 @@
   },
   {
     "codigo": "ZM",
-    "gerente": "Leonardo",
+    "gerente": "Leonardo Carlos da Fonseca",
+    "telefone": "32 99962-1988",
+    "email": "leonardo.fonseca@farmaciaindiana.com.br",
     "distritais": [],
     "filiais_diretas": [
       { "codigo": 97, "nome": "Viçosa" },
@@ -1038,20 +1096,14 @@
   }
 ];
 
-        // ═══════════════════════════════════════════════════════════════════
-        // FIM DOS DADOS EDITÁVEIS
-        // ═══════════════════════════════════════════════════════════════════
-
         let currentFilter = 'all';
 
-        // Set current date
         document.getElementById('dataAtual').textContent = new Date().toLocaleDateString('pt-BR', {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric'
         });
 
-        // Calculate and display stats
         function updateStats() {
             const totalRegionais = dadosRegionais.length;
             const totalDistritais = dadosRegionais.reduce((acc, r) => acc + r.distritais.length, 0);
@@ -1064,27 +1116,28 @@
             document.getElementById('totalGerentes').textContent = totalGerentes;
         }
 
-        // Render regionais
         function renderRegionais(data, searchTerm = '') {
             const container = document.getElementById('regionaisContainer');
             const search = searchTerm.toLowerCase().trim();
 
             let filtered = data;
 
-            // Apply filter
             if (currentFilter === 'with-distrital') {
                 filtered = data.filter(r => r.distritais.length > 0);
             } else if (currentFilter === 'without-distrital') {
                 filtered = data.filter(r => r.distritais.length === 0);
             }
 
-            // Apply search
             if (search) {
                 filtered = filtered.filter(r => {
                     const matchRegional = r.codigo.toLowerCase().includes(search) || 
-                                         r.gerente.toLowerCase().includes(search);
+                                         r.gerente.toLowerCase().includes(search) ||
+                                         (r.telefone && r.telefone.includes(search)) ||
+                                         (r.email && r.email.toLowerCase().includes(search));
                     const matchDistrital = r.distritais.some(d => 
                         d.nome.toLowerCase().includes(search) ||
+                        (d.telefone && d.telefone.includes(search)) ||
+                        (d.email && d.email.toLowerCase().includes(search)) ||
                         d.filiais.some(f => f.nome.toLowerCase().includes(search) || 
                                           f.codigo.toString().includes(search))
                     );
@@ -1114,6 +1167,10 @@
                             <div class="regional-details">
                                 <h3>Regional ${regional.codigo}</h3>
                                 <div class="gerente">👤 ${regional.gerente}</div>
+                                <div class="contato-info">
+                                    ${regional.telefone ? `<div class="contato-item"><span class="contato-icon">📞</span>${regional.telefone}</div>` : ''}
+                                    ${regional.email ? `<div class="contato-item"><span class="contato-icon">✉️</span>${regional.email}</div>` : ''}
+                                </div>
                             </div>
                         </div>
                         <div class="regional-count">${regional.total_filiais} filiais</div>
@@ -1123,7 +1180,13 @@
                             <div class="distrital-section">
                                 <div class="distrital-header">
                                     <div class="distrital-icon">👤</div>
-                                    <span class="distrital-name">Distrital ${distrital.nome}</span>
+                                    <div class="distrital-info">
+                                        <div class="distrital-name">${distrital.nome}</div>
+                                        <div class="distrital-contato">
+                                            ${distrital.telefone ? `<span>📞 ${distrital.telefone}</span>` : ''}
+                                            ${distrital.email ? `<span>✉️ ${distrital.email}</span>` : ''}
+                                        </div>
+                                    </div>
                                     <span class="distrital-count">${distrital.filiais.length} filiais</span>
                                 </div>
                                 <div class="filiais-list">
@@ -1153,29 +1216,27 @@
             `).join('');
         }
 
-        // Export to Excel
         function exportToExcel() {
-            let csv = 'Regional;Gerente Regional;Gerente Distrital;Código Filial;Nome Filial;Tipo\n';
+            let csv = 'Regional;Gerente Regional;Telefone Regional;Email Regional;Gerente Distrital;Telefone Distrital;Email Distrital;Código Filial;Nome Filial;Tipo\n';
             
             dadosRegionais.forEach(regional => {
                 regional.distritais.forEach(distrital => {
                     distrital.filiais.forEach(filial => {
-                        csv += `${regional.codigo};${regional.gerente};${distrital.nome};${filial.codigo};${filial.nome};Com Distrital\n`;
+                        csv += `${regional.codigo};${regional.gerente};${regional.telefone || ''};${regional.email || ''};${distrital.nome};${distrital.telefone || ''};${distrital.email || ''};${filial.codigo};${filial.nome};Com Distrital\n`;
                     });
                 });
                 regional.filiais_diretas.forEach(filial => {
-                    csv += `${regional.codigo};${regional.gerente};;${filial.codigo};${filial.nome};Direta ao Regional\n`;
+                    csv += `${regional.codigo};${regional.gerente};${regional.telefone || ''};${regional.email || ''};;;;${filial.codigo};${filial.nome};Direta ao Regional\n`;
                 });
             });
 
             const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `Estrutura_Regional_Indiana_${new Date().toISOString().split('T')[0]}.csv`;
+            link.download = `Estrutura_Regional_Indiana_Completa_${new Date().toISOString().split('T')[0]}.csv`;
             link.click();
         }
 
-        // Event listeners
         document.getElementById('searchInput').addEventListener('input', (e) => {
             renderRegionais(dadosRegionais, e.target.value);
         });
@@ -1189,7 +1250,6 @@
             });
         });
 
-        // Initial render
         updateStats();
         renderRegionais(dadosRegionais);
     </script>
